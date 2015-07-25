@@ -1,7 +1,7 @@
-var grooper = angular.module('grooper');
+var app = angular.module('grooper');
 
 // Converts an object of objects into an array of objects
-grooper.filter('array', function() {
+app.filter('array', function() {
 	return function(items) {
     	var filtered = [];
     	angular.forEach(items, function(item) {
@@ -13,59 +13,66 @@ grooper.filter('array', function() {
 
 // Grooper UX Controller =======================================================================================
 
-grooper.controller('uxctrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
-	
+app.controller('uxctrl', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
 
     $scope.signUp = function() {
-    	var user = {
-    		first_name: $scope.first_name,
-    		last_name: $scope.last_name,
-    		email: $scope.email,
-    		password: $scope.password,
-    		gender: $scope.gender
-    	};
-		var credentials = {
-			email: $scope.email,
-			password: $scope.password
-		};
-		$http.post('http://localhost:9000/api/accounts/', user)
-			.success(function() {
-		    	$http.post('http://localhost:9000/api-login/', credentials)
-		    		.success(function(data) {
-		    			$scope.token = data.token;
-		    			$scope.account = data.account;
-		    			console.log(data.token);
-		    			console.log(data.account);
-		    			$('#signupModal').modal('hide');
-		    		});
-			});
+        var credentials = {
+            first_name: $scope.first_name,
+            last_name: $scope.last_name,
+            email: $scope.email,
+            password: $scope.password,
+            gender: $scope.gender
+        };
+        
+        $http.post('http://localhost:9000/api-signup/', credentials)
+            .success(function (data, status, headers, config) {
+                $window.sessionStorage.token = data.jwt;
+                $scope.user = data.user;
+                $('#signupModal').modal('hide');
+                console.log(data.jwt);
+                console.log(data.user);
+            })
+            .error(function (data, status, headers, config) {
+                // Erase the token if the user fails to log in
+                delete $window.sessionStorage.token;
+        });
     };
 
-    $scope.logIn = function() {
-		var credentials = {
-			email: $scope.email,
-			password: $scope.password
-		};
+    $scope.logIn = function () {
 
-    	$http.post('http://localhost:9000/api-login/', credentials)
-    		.success(function(data) {
-    			$scope.token = data.token;
-    			$scope.account = data.account;
-    			console.log(data.token);
-    			console.log(data.account);
-    			$('#loginModal').modal('hide');
-    		});
+        var credentials = {
+            email: $scope.email,
+            password: $scope.password
+        };
+
+        $http.post('http://localhost:9000/api-login/', credentials)
+            .success(function (data, status, headers, config) {
+                $window.sessionStorage.token = data.jwt;
+                $scope.user = data.user;
+                $('#loginModal').modal('hide');
+                console.log(data.jwt);
+                console.log(data.user);
+            })
+            .error(function (data, status, headers, config) {
+                // Erase the token if the user fails to log in
+                delete $window.sessionStorage.token;
+        });
     };
 
     $scope.createGroop = function() {
     	var groop = {
-    		min_members: $scope.min_members,
-    		max_members: $scope.max_members,
-    		name: $scope.name,
-    		description: $scope.groop_description,
-    		location: $scope.groop_location
+            name: $scope.groop.name,
+    		min_members: $scope.groop.min,
+    		max_members: $scope.groop.max,
+    		location: $scope.groop.location,
+            date: $scope.groop.date,
+            description: $scope.groop.description
     	}
-    	$http.post('http://localhost:9000/api/groups/', groop);
+    	$http.post('http://localhost:9000/api/groups/', groop)
+            .success(function() {
+                $('#createModal').modal('hide');
+                document.getElementById("createGroop").reset();
+            });
     };
 
     $scope.getAllGroops = function() {
@@ -76,6 +83,10 @@ grooper.controller('uxctrl', ['$scope', '$http', '$location', function($scope, $
             .error(function(data) {
                 console.log('Error: ' + data);
             });
+    };
+
+    $scope.goto = function(path) {
+        $location.path(path);
     };
 
     $scope.getAllGroops();
@@ -110,7 +121,27 @@ grooper.controller('uxctrl', ['$scope', '$http', '$location', function($scope, $
     // $scope.goto = function(path) {
     //     $location.path(path);
     // };
-
-	$scope.users = [];
 	
 }]);
+
+app.factory('authInterceptor', function ($rootScope, $q, $window) {
+  return {
+    request: function (config) {
+      config.headers = config.headers || {};
+      if ($window.sessionStorage.token) {
+        config.headers.Authorization = 'JWT ' + $window.sessionStorage.token;
+      }
+      return config;
+    },
+    responseError: function (response) {
+      if (response.status === 401) {
+        // handle the case where the user is not authenticated
+      }
+      return response || $q.when(response);
+    }
+  };
+});
+
+app.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
+});

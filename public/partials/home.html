@@ -1,39 +1,22 @@
-<header>
-	<h1 style="text-align: center; margin-bottom: 1em">Grooper</h1>
-</header>
+<div class="container-fluid">
+	<form ng-submit="goto('/searchList')">
+		<div class="row">
+		    <div class="col-md-8 col-md-offset-2">
+			    <div class="input-group" align="center" style="margin:auto">
+			    	<img src="/images/stanfordWord.png" width="420" height="420">
+			        <input type="text" class="search-query form-control" placeholder="Search Groops" ng-model="searchText"/>
+			    </div>
 
-<div class="row">
+			    <div align="center" style="padding: 1em">
+			        <button type="submit" style="display: inline-block; width: 8em; margin: 1em" class="btn btn-danger">Search</button>
+			        <button type="submit" style="display: inline-block; width: 8em" class="btn btn-danger">Recommend</button>
+			    </div>
+			</div>
+		</div>
+	</form>
+</div>
 
-	<!-- Signup / Login -->
-	<div class="col-md-2" style="background-color:lavender; margin-right: 1em; height: 55em">
-		<button type="button" class="btn btn-primary btn-lg" style="margin-left: 2.5em; margin-bottom: 1em" data-toggle="modal" data-target="#signupModal">Sign Up</button>
-		<button type="button" class="btn btn-danger btn-lg" style="margin-left: 2.75em" data-toggle="modal" data-target="#loginModal">Log In</button>
-	</div>
-
-	<!-- Groop List -->
-    <div class="col-md-6" style="background-color:lavender; margin-right: 1em; height: 55em">
-		<div class="list-group" ng-repeat="groop in allGroops | array | filter:searchText">
-	    	<a href="#groop" class="list-group-item">
-	      		<h4 class="list-group-item-heading">{{groop.name}}<div style="float: right">{{groop.min_members}} / {{groop.max_members}}</div></h4>
-	      		<p class="list-group-item-text">{{groop.description}}</p>
-	    	</a>
-	  	</div>
-	</div>
-
-
-	<div class="col-md-3" style="background-color:lavender; height: 55em">
-
-		<!-- Search Bar -->
-	    <div class="input-group col-md-12" style=" margin: 0em 0em 1em 0em">
-	        <input type="text" class="search-query form-control" placeholder="Search" ng-model="searchText"/>
-	        <span class="input-group-btn">
-	            <button class="btn btn-danger" type="button">
-	                <span class=" glyphicon glyphicon-search"></span>
-	            </button>
-	        </span>
-	    </div>
-
-	    <!-- Categories -->
+<!-- 	    Categories
 		<div class="list-group" style="margin-top: 1em">
 	    	<a href="#" class="list-group-item">
 	      		<h3 class="list-group-item-heading">Sports</h3>
@@ -53,45 +36,43 @@
 	    	<a href="#" class="list-group-item">
 	      		<h3 class="list-group-item-heading">Other</h3>
 	    	</a>
-	  	</div>
-	</div>
-
-</div>
+	  	</div> -->
 
 <!-- Signup Modal -->
 <div class="modal fade" id="signupModal" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" style="width: 27em">
 	    <!-- Signup Modal content-->
 	    <div class="modal-content">
+	    	<form role="form" ng-submit="signUp()">
+		        <div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        	<h4 class="modal-title">Welcome to Grooper</h4>
+		        </div>
 
-	        <div class="modal-header">
-	        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	        	<h4 class="modal-title">Welcome to Grooper</h4>
-	        </div>
-
-	        <div class="modal-body">
-			    <div class="form-group">
-			    	<div class="form-inline">
-			    		<div class="input-group">
-					    	<input type="text" placeholder="First Name" class="form-control" ng-model="first_name" required>
-					    </div>
-			    		<div class="input-group">
-					    	<input type="text" placeholder="Last Name" class="form-control" ng-model="last_name" required>
-					    </div>
+		        <div class="modal-body">
+	        	    <div class="form-group">
+				    	<div class="form-inline">
+				    		<div class="input-group">
+						    	<input type="text" placeholder="First Name" class="form-control" ng-model="first_name" required>
+						    </div>
+				    		<div class="input-group">
+						    	<input type="text" placeholder="Last Name" class="form-control" ng-model="last_name" required>
+						    </div>
+						</div>
+				      	<input style="width: 24.3em" type="email" placeholder="Email address" class="form-control" ng-model="email" required>
+				      	<input style="width: 24.3em" type="password" placeholder="Password" class="form-control" ng-model="password" required>
+				      	<div style="padding-top: 1em; padding-left: 6em">
+					      	<label class="radio-inline" style="padding-right: 1em"><input type="radio" name="optradio">Male</label>
+							<label class="radio-inline"><input type="radio" name="optradio">Female</label>
+						</div>
 					</div>
-			      	<input style="width: 24.3em" type="email" placeholder="Email address" class="form-control" ng-model="email" required>
-			      	<input style="width: 24.3em" type="password" placeholder="Password" class="form-control" ng-model="password" required>
-			      	<div style="padding-top: 1em; padding-left: 6em">
-				      	<label class="radio-inline" style="padding-right: 1em"><input type="radio" name="optradio">Male</label>
-						<label class="radio-inline"><input type="radio" name="optradio">Female</label>
-					</div>
-				</div>
-	        </div>
+		        </div>
 
-	        <div class="modal-footer">
-	        	<button type="submit" class="btn btn-danger" ng-click="signUp()">Sign Up</button>
-	        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        </div>
+		        <div class="modal-footer">
+		        	<button type="submit" class="btn btn-danger">Sign Up</button>
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		        </div>
+		    </form>
 	    </div>
     </div>
 </div>
@@ -107,14 +88,54 @@
 	        </div>
 	        <div class="modal-body">
 	        	<div class="input-group input-group-lg">
-			  		<input type="text" class="form-control" placeholder="Email address" ng-model="email">
+			  		<input type="text" class="form-control" placeholder="Email address" ng-model="email" style="width: 15em">
 				</div>
 	        	<div class="input-group input-group-lg">
-			  		<input type="password" class="form-control" placeholder="Password" ng-model="password">
+			  		<input type="password" class="form-control" placeholder="Password" ng-model="password" style="width: 15em">
 				</div>
 	        </div>
 	        <div class="modal-footer">
 	        	<button type="submit" class="btn btn-danger" ng-click="logIn()">Log In</button>
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        </div>
+	    </div>
+    </div>
+</div>
+
+<!-- Create Groop Modal -->
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog modal-lg" style="width: 45em">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	        <div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        	<h4 class="modal-title">Create Groop</h4>
+	        </div>
+	        <form id="createGroop">
+		        <div class="modal-body" style="padding: 3em">
+		        	<div class="input-group input-group-lg">
+				  		<input type="text" class="form-control" placeholder="Groop Name*" ng-model="groop.name" style="width: 30em">
+					</div>
+		        	<div class="input-group input-group-lg">
+				  		<input type="text" class="form-control" placeholder="# of people wanted" ng-model="groop.min" style="width: 30em">
+					</div>
+		        	<div class="input-group input-group-lg">
+				  		<input type="text" class="form-control" placeholder="Maximum # of people wanted" ng-model="groop.max" style="width: 30em">
+					</div>
+		        	<div class="input-group input-group-lg">
+				  		<input type="text" class="form-control" placeholder="Location" ng-model="groop.location" style="width: 30em">
+					</div>
+		        	<div class="input-group input-group-lg">
+				  		<input type="text" class="form-control" placeholder="Date" ng-model="groop.date" style="width: 30em">
+					</div>
+		        	<div class="input-group input-group-lg">
+				  		<input type="text" class="form-control" placeholder="Description" ng-model="groop.description" style="width: 30em">
+					</div>
+		        </div>
+		    </form>
+	        <div class="modal-footer">
+	        	<p style="float: left; margin-top: 0.5em"><span style="color: red">*</span> Indicates required field</p>
+	        	<button type="submit" class="btn btn-danger" ng-click="createGroop()">Create Groop</button>
 	        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 	        </div>
 	    </div>

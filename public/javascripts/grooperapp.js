@@ -1,26 +1,26 @@
 // Module ===============================================================================================
-var app = angular.module('grooper', ['ngRoute']);
+var app = angular.module('grooper', ['ui.router']);
 
 // Route Config =========================================================================================
-app.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
-        $routeProvider.
-        when('/', {
+
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/home");
+
+    $stateProvider
+        .state('home', {
+            url: '/home',
             templateUrl: '/partials/home.html',
             controller: 'uxctrl'
-        }).
-        when('/groop', {
+        })
+        .state('searchList', {
+            url: '/searchList',
+            templateUrl: '/partials/searchList.html',
+            controller: 'uxctrl'
+        })
+        .state('groop', {
+            url: '/groop',
             templateUrl: '/partials/groop.html',
             controller: 'uxctrl'
-        }).
-        when('/profile', {
-            templateUrl: '/partials/profile.html',
-            controller: 'uxctrl'
-        }).
-        otherwise({
-            redirectTo: '/'
         });
-    }
-]);
-
+}]);
 

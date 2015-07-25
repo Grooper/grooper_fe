@@ -1,27 +1,40 @@
-<h1 style="left: 0; display: inline-block;">Groop Name</h1>
-<h1 style="float: right; display: inline-block; font-size: 60px">4<div style="font-size: 30px; display: inline-block">/5</div></h1>
-
-<div class="panel panel-default" style="width: 70%; margin: 1em 0em">
-  <div class="panel-heading">
-    <h3 class="panel-title">Description</h3>
-  </div>
-  <div class="panel-body">
-    <p>This is a description for the groop. This is a description for the groop.
-       This is a description for the groop. This is a description for the groop. 
-       This is a description for the groop.
-     </p>
-  </div>
+<h1 style="display: inline-block; margin-top: 1em; margin-left: 1em">Groop Name</h1>
+<div style="float: right; display: inline-block">
+  <h1 style="float: right; display: inline-block; font-size: 60px">4<div style="font-size: 30px; display: inline-block; margin-right: 3em">/5</div></h1>
 </div>
 
-<!-- Whiteboard -->
-<form class="form-inline" ng-submit="addPost()" style="margin-top:4em">
+<div class="col-md-12">
+  <div class="col-md-4" style="margin-top: 3em">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Description</h3>
+      </div>
+      <div class="panel-body">
+        Panel content
+      </div>
+    </div>
 
-  <!-- Text Input Post on Whiteboard -->
-  <div class="form-group">
-    <input type="text" class="form-control" placeholder="Post something to the Whiteboard..." ng-model="content" style="width: 52.5em"></input>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Location</h3>
+      </div>
+      <div class="panel-body">
+        Panel content
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Post</button>
-</form>
+
+  <!-- Whiteboard -->
+  <div class="col-md-8">
+    <form class="form-inline" ng-submit="addPost()" style="margin-top:3em">
+      <!-- Text Input Post on Whiteboard -->
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Post something to the Whiteboard..." ng-model="content" style="width: 45em"></input>
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+  </div>
+</div>
 
 <!-- Post on Whiteboard -->
 <div ng-repeat="post in posts | orderBy:'-upvotes'" class="whiteboard">
@@ -45,3 +58,17 @@
 
   </div>
 </div>
+
+<!-- Groops Button Dropdown
+<div class="btn-group">
+  <button type="button" class="btn btn-danger btn-lg dropdown-toggle" data-toggle="dropdown">
+    Groops <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">All Groops</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">My Groops</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="/">Log Out</a></li>
+  </ul>
+</div> -->

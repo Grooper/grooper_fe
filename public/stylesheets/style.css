@@ -1,7 +1,7 @@
 body {
-	padding: 50px;
+	padding: 30px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-	background-color: lavender;
+	background-color: #DCF0E6;
 }
 
 a {
@@ -15,7 +15,4 @@ a {
 .whiteboard {
 	position: relative;
 	top: 3em;
-}
-
-.whiteboardPost {
 }
