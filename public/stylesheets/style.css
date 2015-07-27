@@ -16,3 +16,8 @@ a {
 	position: relative;
 	top: 3em;
 }
+
+.btn {
+	background-color: #EEEEEE;
+	color: #333333;
+}

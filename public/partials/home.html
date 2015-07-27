@@ -3,40 +3,18 @@
 		<div class="row">
 		    <div class="col-md-8 col-md-offset-2">
 			    <div class="input-group" align="center" style="margin:auto">
-			    	<img src="/images/stanfordWord.png" width="420" height="420">
+			    	<img src="/images/greenHead.png" width="320" height="320">
 			        <input type="text" class="search-query form-control" placeholder="Search Groops" ng-model="searchText"/>
 			    </div>
 
 			    <div align="center" style="padding: 1em">
-			        <button type="submit" style="display: inline-block; width: 8em; margin: 1em" class="btn btn-danger">Search</button>
-			        <button type="submit" style="display: inline-block; width: 8em" class="btn btn-danger">Recommend</button>
+			        <button type="submit" style="display: inline-block; width: 8em; margin: 1em" class="btn btn-default">Search</button>
+			        <button type="submit" style="display: inline-block; width: 8em" class="btn btn-default">Recommend</button>
 			    </div>
 			</div>
 		</div>
 	</form>
 </div>
-
-<!-- 	    Categories
-		<div class="list-group" style="margin-top: 1em">
-	    	<a href="#" class="list-group-item">
-	      		<h3 class="list-group-item-heading">Sports</h3>
-	    	</a>
-	    	<a href="#" class="list-group-item">
-	      		<h3 class="list-group-item-heading">Entertainment</h3>
-	    	</a>
-	    	<a href="#" class="list-group-item">
-	      		<h3 class="list-group-item-heading">Social</h3>
-	    	</a>
-	    	<a href="#" class="list-group-item">
-	      		<h3 class="list-group-item-heading">Transportation</h3>
-	    	</a>
-	    	<a href="#" class="list-group-item">
-	      		<h3 class="list-group-item-heading">Housing</h3>
-	    	</a>
-	    	<a href="#" class="list-group-item">
-	      		<h3 class="list-group-item-heading">Other</h3>
-	    	</a>
-	  	</div> -->
 
 <!-- Signup Modal -->
 <div class="modal fade" id="signupModal" role="dialog">
@@ -88,10 +66,10 @@
 	        </div>
 	        <div class="modal-body">
 	        	<div class="input-group input-group-lg">
-			  		<input type="text" class="form-control" placeholder="Email address" ng-model="email" style="width: 15em">
+			  		<input type="text" class="form-control" placeholder="Email address" ng-model="user.email" style="width: 15em">
 				</div>
 	        	<div class="input-group input-group-lg">
-			  		<input type="password" class="form-control" placeholder="Password" ng-model="password" style="width: 15em">
+			  		<input type="password" class="form-control" placeholder="Password" ng-model="user.password" style="width: 15em">
 				</div>
 	        </div>
 	        <div class="modal-footer">

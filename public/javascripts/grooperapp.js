@@ -10,17 +10,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         .state('home', {
             url: '/home',
             templateUrl: '/partials/home.html',
-            controller: 'uxctrl'
+            controller: 'homeCtrl'
         })
         .state('searchList', {
             url: '/searchList',
             templateUrl: '/partials/searchList.html',
-            controller: 'uxctrl'
+            controller: 'searchCtrl'
         })
         .state('groop', {
             url: '/groop',
             templateUrl: '/partials/groop.html',
-            controller: 'uxctrl'
+            controller: 'groopCtrl'
         });
 }]);
 
