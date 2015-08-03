@@ -1,7 +1,7 @@
 body {
 	padding: 30px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-	background-color: #DCF0E6;
+	background-color: #F0F5FA;
 }
 
 a {
@@ -17,7 +17,7 @@ a {
 	top: 3em;
 }
 
-.btn {
-	background-color: #EEEEEE;
-	color: #333333;
+.navbar {
+	background-color: #F0F5FA;
+	border-color: #F0F5FA;
 }

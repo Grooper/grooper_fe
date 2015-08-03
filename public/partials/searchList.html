@@ -1,12 +1,12 @@
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-8">
 		<input type="text" style="margin-bottom: 1em" class="search-query form-control" placeholder="Search Groops" ng-model="searchText"/>
 		<!-- Groop List -->	    
 		<div class="list-group" ng-repeat="groop in allGroops | array | filter:searchText">
-			<a class="list-group-item" ui-sref="groop" ng-click="showGroop(groop.id)">
-		  		<h4 class="list-group-item-heading">{{groop.name}}
+			<a class="list-group-item" ui-sref="groop({id: groop.id})" ng-click="getGroopById(groop.id)">
+		  		<h4 class="list-group-item-heading">{{groop.group_name}}
 		  			<div style="float: right">
-		  				{{groop.min_members}} / {{groop.max_members}}
+		  				{{groop.num_members}} / {{groop.max_members}}
 		  			</div>
 		  		</h4>
 		  		<p class="list-group-item-text">{{groop.description}}</p>
@@ -14,16 +14,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- <div class="btn-group">
-  <button type="button" class="btn btn-danger btn-lg dropdown-toggle" data-toggle="dropdown">
-    Groops <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">All Groops</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">My Groops</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="/">Log Out</a></li>
-  </ul>
-</div> -->

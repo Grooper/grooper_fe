@@ -101,7 +101,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
 
 // Grooper Search Controller =======================================================================================
 
-app.controller('searchCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', function($scope, $http, $window, $location, authInterceptor, groopsFactory) {
+app.controller('searchCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', '$stateParams', function($scope, $http, $window, $location, authInterceptor, groopsFactory, $stateParams) {
 
 
     $scope.signUp = function() {
@@ -185,7 +185,7 @@ app.controller('searchCtrl', ['$scope', '$http', '$window', '$location', 'authIn
         $location.path(path);
     };
 
-    $scope.showGroop = function(id) {
+    $scope.getGroopById = function(id) {
         $http.get('http://localhost:9000/api/groups/' + id + '/')
             .success(function(data) {
                 $scope.groop = data;
@@ -202,21 +202,51 @@ app.controller('searchCtrl', ['$scope', '$http', '$window', '$location', 'authIn
 
 // Grooper Groop Controller =======================================================================================
 
-app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', function($scope, $http, $window, $location, authInterceptor, groopsFactory) {
+app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', '$stateParams', function($scope, $http, $window, $location, authInterceptor, groopsFactory, $stateParams) {
 
-    $scope.groop = groopsFactory.groop;
+    // $scope.groop = groopsFactory.groops[$stateParams.id];
+    // $scope.groop = localStorage.getItem('groop');
+    // $scope.id = localStorage.getItem('id');
+
+    $scope.start = function() {
+        $http.get('http://localhost:9000/api/groups/' + $stateParams.id + '/')
+            .success(function(data) {
+                $scope.groop = data;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
+
+    $scope.joinGroop = function(id) {
+        $http.post('http://localhost:9000/api/groups/' + id + '/join-group/');
+    };
+    
+    $scope.leaveGroop = function(id) {
+        $http.delete('http://localhost:9000/api/groups/' + id + '/leave-group/');
+    };
+
+    $scope.addPost = function() {
+        var message = $scope.message;
+        var boardId = $scope.groop.whiteboard;
+        $http.post('http://localhost:9000/api/posts/', message, boardId);
+    }
 
     $scope.goto = function(path) {
         $location.path(path);
     };
 
-    // $scope.getAllGroops();
+    $scope.getPosts = function() {
+        $http.get('http://localhost:9000/api/posts/');
+    }
+
+    $scope.start();
     
 }]);
 
 app.factory('groopsFactory', function () {
        var groopsInstance = {
-            groop: {}
+            groops: []
        }
        return groopsInstance; 
 });

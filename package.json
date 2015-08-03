@@ -17,6 +17,7 @@
     "jquery": "~2.1.4",
     "morgan": "~1.5.3",
     "path": "^0.11.14",
+    "request": "2.60.0",
     "serve-favicon": "~2.2.1"
   }
 }
