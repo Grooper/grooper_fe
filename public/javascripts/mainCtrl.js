@@ -101,7 +101,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
 
 // Grooper Search Controller =======================================================================================
 
-app.controller('searchCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', '$stateParams', function($scope, $http, $window, $location, authInterceptor, groopsFactory, $stateParams) {
+app.controller('searchCtrl', ['$scope', '$window', '$location', 'authInterceptor', 'groopsFactory', '$stateParams', function($scope, $window, $location, authInterceptor, groopsFactory, $stateParams) {
 
 
     $scope.signUp = function() {
@@ -170,15 +170,27 @@ app.controller('searchCtrl', ['$scope', '$http', '$window', '$location', 'authIn
             });
     };
 
+    // $scope.getAllGroops = function() {
+    //     $http.get('http://localhost:9000/api/groups/')
+    //         .success(function(data) {
+    //             $scope.allGroops = data;
+    //             groopsFactory.groops = $scope.allGroops;
+    //         })
+    //         .error(function(data) {
+    //             console.log('Error: ' + data);
+    //         });
+    // };
+
     $scope.getAllGroops = function() {
-        $http.get('http://localhost:9000/api/groups/')
-            .success(function(data) {
-                $scope.allGroops = data;
-                groopsFactory.groops = $scope.allGroops;
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        request('http://localhost:9000/api/groups/', function (error, response, body) {
+            if (error) {
+                return console.log('Error:', error);
+            }
+            else {
+                $scope.allGroops = body;
+                console.log(body);
+            }
+        });
     };
 
     $scope.goto = function(path) {
