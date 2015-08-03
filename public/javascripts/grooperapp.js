@@ -23,4 +23,3 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'groopCtrl'
         });
 }]);
-
