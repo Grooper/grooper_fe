@@ -3,7 +3,7 @@
 		<input type="text" style="margin-bottom: 1em" class="search-query form-control" placeholder="Search Groops" ng-model="searchText"/>
 		<!-- Groop List -->	    
 		<div class="list-group" ng-repeat="groop in allGroops | array | filter:searchText">
-			<a class="list-group-item" ui-sref="groop({id: groop.id})" ng-click="getGroopById(groop.id)">
+			<a class="list-group-item" ui-sref="groop({id: groop.id, myParam: groop.whiteboard})">
 		  		<h4 class="list-group-item-heading">{{groop.group_name}}
 		  			<div style="float: right">
 		  				{{groop.num_members}} / {{groop.max_members}}

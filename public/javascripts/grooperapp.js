@@ -18,7 +18,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'searchCtrl'
         })
         .state('groop', {
-            url: '/groop/:id',
+            url: '/groop/:id?myParam',
             templateUrl: '/partials/groop.html',
             controller: 'groopCtrl'
         });

@@ -197,29 +197,6 @@ app.controller('searchCtrl', ['$scope', '$window', '$location', 'authInterceptor
     //     });
     // };
 
-    $scope.getGroopById = function(id) {
-        $http.get('http://localhost:9000/api/groups/' + id + '/')
-            .success(function(data) {
-                $scope.groop = data;
-                groopsFactory.groop = $scope.groop;
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
-    };
-
-    // $scope.getGroopById = function() {
-    //     request.get('http://localhost:9000/api/groups/' + id + '/', function (error, response, body) {
-    //         if (error) {
-    //             return console.log('Error:', error);
-    //         }
-    //         else {
-    //             $scope.groop = body;
-    //             groopsFactory.groop = $scope.groop;
-    //         }
-    //     });
-    // };
-
     $scope.goto = function(path) {
         $location.path(path);
     };
@@ -233,6 +210,11 @@ app.controller('searchCtrl', ['$scope', '$window', '$location', 'authInterceptor
 app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', '$stateParams', function($scope, $http, $window, $location, authInterceptor, groopsFactory, $stateParams) {
 
     $scope.start = function() {
+        $scope.getGroop();
+        $scope.getPosts();
+    };
+
+    $scope.getGroop = function() {
         $http.get('http://localhost:9000/api/groups/' + $stateParams.id + '/')
             .success(function(data) {
                 $scope.groop = data;
@@ -240,21 +222,13 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
             .error(function(data) {
                 console.log('Error: ' + data);
             });
-    };
-
-    // $scope.start = function() {
-    //     request.get('http://localhost:9000/api/groups/' + $stateParams.id + '/', function (error, response, body) {
-    //         if (error) {
-    //             return console.log('Error:', error);
-    //         }
-    //         else {
-    //             $scope.groop = body;
-    //         }
-    //     });
-    // };
+    }
 
     $scope.joinGroop = function(id) {
-        $http.post('http://localhost:9000/api/groups/' + id + '/join-group/');
+        $http.post('http://localhost:9000/api/groups/' + id + '/join-group/')
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
     };
 
     // $scope.joinGroop = function(id) {
@@ -266,7 +240,10 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
     // };
     
     $scope.leaveGroop = function(id) {
-        $http.delete('http://localhost:9000/api/groups/' + id + '/leave-group/');
+        $http.delete('http://localhost:9000/api/groups/' + id + '/leave-group/')
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
     };
 
     // $scope.leaveGroop = function(id) {
@@ -277,11 +254,27 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
     //     });
     // };
 
+    $scope.getPosts = function() {
+        $http.get('http://localhost:9000/api/posts/?whiteboard=' + $stateParams.myParam)
+            .success(function(data) {
+                $scope.posts = data;
+                console.log($scope.posts);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
+
     $scope.addPost = function() {
-        var message = $scope.message;
-        var boardId = $scope.groop.whiteboard;
-        $http.post('http://localhost:9000/api/posts/', message, boardId);
-    }
+        var data = {
+            message: $scope.message,
+            whiteboard: $scope.groop.whiteboard         
+        }
+        $http.post('http://localhost:9000/api/posts/', data)
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
 
     // $scope.addPost = function() {
     //     request({
@@ -295,19 +288,48 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
     //     });
     // };
 
+    $scope.likePost = function(id) {
+        $http.post('http://localhost:9000/api/posts/' + id + '/like/')
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
 
+    $scope.deletePost = function(id) {
+        $http.delete('http://localhost:9000/api/posts/' + id + '/')
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
 
-    $scope.getPosts = function() {
-        $http.get('http://localhost:9000/api/posts/');
-    }
+    $scope.getComments = function(id) {
+        $http.get('http://localhost:9000/api/comments/?post=' + id)
+            .success(function(data) {
+                $scope.comments = data;
+                console.log($scope.comments);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
 
-    // $scope.getPosts = function() {
-    //     request.get('http://localhost:9000/api/posts/', function (error, response, body) {
-    //         if (error) {
-    //             return console.log('Error:', error);
-    //         }
-    //     });
-    // };
+    $scope.addComment = function(id) {
+        var data = {
+            message: $scope.newComment,
+            post: id
+        }
+        $http.post('http://localhost:9000/api/comments/', data)
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
+
+    $scope.likeComment = function(id) {
+        $http.post('http://localhost:9000/api/comments/' + id + '/like/')
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
 
     $scope.goto = function(path) {
         $location.path(path);

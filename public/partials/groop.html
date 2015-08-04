@@ -42,24 +42,30 @@
 
 <div style="background-color: white; width: 40em; height: 40em; float: right; margin-top: 10em">
 <!-- Post on Whiteboard -->
-<div ng-repeat="message in posts | orderBy:'-upvotes'" class="whiteboard">
-  <div class="whiteboardPost" style="padding: 1em; background-color: lavenderblush; width: 52.5em">
-    <span style="font-size:15px;">
-      {{message}}
+<div ng-repeat="post in posts | orderBy:'-upvotes'" class="whiteboard">
+  <div class="whiteboardPost" style="padding: 1em; background-color: white; width: 40em" data-ng-init="getComments(post.id);">
+    <span ng-click="deletePost(post.id)" class="glyphicon glyphicon-remove" aria-hidden="true" style="float: right"></span>
+    <span style="font-size:15px">
+      {{post.message}}
     </span>
 
     <!-- Text Input Comment on Post -->
-    <form class="form-inline" ng-submit="addComment()" style="background-color: lavender; margin: 1em; padding: 1em">
+    <form class="form-inline" ng-submit="addComment(post.id)" style="background-color: lavender; margin: 1em; padding: 1em">
       <span class="glyphicon glyphicon-thumbs-up"
-        ng-click="incrementUpvotes(post)"> {{post.upvotes}} 
+        ng-click="likePost(post.id)"> {{post.like_count}} 
       </span>
-      <input type="text" class="form-control" placeholder="Add a comment..." ng-model="body" style="width: 90%; margin-left: 1em"></input>
+      <input type="text" class="form-control" placeholder="Add a comment..." ng-model="newComment" style="width: 80%; margin-left: 1em"></input>
+      <button type="submit" class="btn btn-primary">Post</button>
     </form>
 
-    <!-- Comment on Post -->
-    <span style="font-size:15px;">
-      {{comment.body}}
-    </span>
+    <!-- Comments on Post -->
+      <div ng-repeat="comment in comments">
+        <span class="glyphicon glyphicon-thumbs-up" ng-click="likeComment(comment.id)" style="margin-left: 3em; margin-right: 1em"> {{comment.like_count}} 
+        </span>
+        <span>
+          {{comment.message}}
+        </span>
+      </div>
 
   </div>
 </div>
