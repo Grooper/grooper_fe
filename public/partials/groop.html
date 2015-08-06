@@ -25,6 +25,7 @@
 
     <button type="button" class="btn btn-default" ng-click="joinGroop(groop.id)">Join Groop</button>
     <button type="button" class="btn btn-default" ng-click="leaveGroop(groop.id)">Leave Groop</button>
+    <button type="button" class="btn btn-default" ng-show="groop.owner == user.id" ng-click="deleteGroop(groop.id)">Delete Groop</button>
 
   </div>
 

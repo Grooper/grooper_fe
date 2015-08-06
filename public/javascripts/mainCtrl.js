@@ -13,7 +13,7 @@ app.filter('array', function() {
 
 // Grooper Home Controller =======================================================================================
 
-app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', function($scope, $http, $window, $location, authInterceptor) {
+app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'groopsFactory', function($scope, $http, $window, $location, authInterceptor, groopsFactory) {
 
     $scope.signUp = function() {
         var credentials = {
@@ -28,6 +28,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
             .success(function (data, status, headers, config) {
                 $window.sessionStorage.token = data.jwt;
                 $scope.user = data.user;
+                $window.sessionStorage.setItem("user", data.user);
                 $('#signupModal').modal('hide');
                 console.log(data.jwt);
                 console.log(data.user);
@@ -79,6 +80,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
             .success(function (data, status, headers, config) {
                 $window.sessionStorage.token = data.jwt;
                 $scope.user = data.user;
+                $window.sessionStorage.setItem("user", data.user);
                 $('#loginModal').modal('hide');
                 console.log(data.jwt);
                 console.log(data.user);
@@ -124,18 +126,21 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
 
     $scope.createGroop = function() {
     	var groop = {
-            name: $scope.groop.name,
-    		min_members: $scope.groop.min,
-    		max_members: $scope.groop.max,
-    		location: $scope.groop.location,
-            date: $scope.groop.date,
-            description: $scope.groop.description
+            group_name: $scope.groop.group_name,
+            description: $scope.groop.description,
+    		max_members: $scope.groop.max_members,
+    		location: $scope.groop.location,  
+            date: $scope.groop.date
     	}
     	$http.post('http://localhost:9000/api/groups/', groop)
             .success(function() {
                 $('#createModal').modal('hide');
                 document.getElementById("createGroop").reset();
             });
+    };
+
+    $scope.deleteGroop = function(groopId) {
+        $http.delete('http://localhost:9000/api/groups/' + groopId + '/');
     };
 
     // $scope.createGroop = function() {
@@ -178,7 +183,6 @@ app.controller('searchCtrl', ['$scope', '$window', '$location', 'authInterceptor
         $http.get('http://localhost:9000/api/groups/')
             .success(function(data) {
                 $scope.allGroops = data;
-                groopsFactory.groops = $scope.allGroops;
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -212,12 +216,14 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
     $scope.start = function() {
         $scope.getGroop();
         $scope.getPosts();
+        //console.log($scope.user.id);
     };
 
     $scope.getGroop = function() {
         $http.get('http://localhost:9000/api/groups/' + $stateParams.id + '/')
             .success(function(data) {
                 $scope.groop = data;
+                $scope.user = $window.sessionStorage.getItem("user");
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -339,12 +345,12 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
     
 }]);
 
-app.factory('groopsFactory', function () {
-       var groopsInstance = {
-            groops: []
-       }
-       return groopsInstance; 
-});
+// app.factory('groopsFactory', function () {
+//        var groopsInstance = {
+//             user: {}
+//        }
+//        return groopsInstance; 
+// });
 
 app.factory('authInterceptor', function ($rootScope, $q, $window) {
   return {
