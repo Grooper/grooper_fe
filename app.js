@@ -30,17 +30,20 @@ var env = process.env.NODE_ENV || 'development';
  * App setup
  */
 
-// Envrionment Variables
+// Set envrionment variables
 app.set('port', port)
 app.set('env', env)
 
-// Scripts
+// Use modules
 app.use(favicon(__dirname + '/public/images/greenG.png'));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Use scripts
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/src', express.static(__dirname + '/src/'));
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
 
 /**
