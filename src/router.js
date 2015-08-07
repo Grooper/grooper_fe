@@ -21,7 +21,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', functio
             controller: 'searchCtrl'
         })
         .state('groop', {
-            url: '/groop/:id?myParam',
+            url: '/groop/:id',
             templateUrl: '/partials/groop.html',
             controller: 'groopCtrl'
         });
@@ -61,7 +61,7 @@ app.factory('api', function($resource) {
         }),
 
         // Group
-        Group: $resource('http://localhost:9000/api/groups/:id/:action/', {id: '@id', action: '@action'}, {
+        Group: $resource('http://localhost:9000/api/groups/:id/:route/', {id: '@id', route: '@route'}, {
             get: {method: 'GET'},
             query: {method: 'GET', isArray: true},
             create: {method: 'POST'},
@@ -75,7 +75,7 @@ app.factory('api', function($resource) {
          ========================================================== WHITEBOARD ==========================================================
          ===============================================================================================================================*/
          // Post
-        Post: $resource('http://localhost:9000/api/posts/:id/', {id: '@id'}, {
+        Post: $resource('http://localhost:9000/api/posts/:id/:route', {id: '@id', route: '@route'}, {
             get: {method: 'GET'},
             query: {method: 'GET', isArray: true},
             create: {method: 'POST'},
@@ -85,7 +85,7 @@ app.factory('api', function($resource) {
         }),
 
         // Comment
-        Comment: $resource('http://localhost:9000/api/comments/:id/', {id: '@id'}, {
+        Comment: $resource('http://localhost:9000/api/comments/:id/:route/', {id: '@id', route: '@route'}, {
             get: {method: 'GET'},
             query: {method: 'GET', isArray: true},
             create: {method: 'POST'},
@@ -100,7 +100,7 @@ app.factory('api', function($resource) {
             query: {method: 'GET', isArray: true},
             create: {method: 'POST'},
             update: {method: 'PUT'},
-            delete: {method: 'DELETE'},
+            delete: {method: 'DELETE'}
         })
     };
 });

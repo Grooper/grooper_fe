@@ -143,7 +143,7 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
 
     // Get Posts for this Group
     $scope.getPosts = function() {
-        $http.get('http://localhost:9000/api/posts/?whiteboard=' + $stateParams.myParam)
+        $http.get('http://localhost:9000/api/posts/?whiteboard=' + $scope.groop.whiteboard)
             .success(function(data) {
                 $scope.posts = data;
                 console.log($scope.posts);
@@ -155,29 +155,29 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
 
     // Join this Group
     $scope.joinGroop = function(id) {
-        api.Group.joinGroup({id: $stateParams.id, action: 'join-group'});
+        api.Group.joinGroup({id: $stateParams.id, route: 'join-group'});
     };
 
     // Leave this Group
     $scope.leaveGroop = function(id) {
-        api.Group.leaveGroup({id: $stateParams.id, action: 'leave-group'});
+        api.Group.leaveGroup({id: $stateParams.id, route: 'leave-group'});
     };
 
     // Write a Post to this Group
     $scope.addPost = function() {
+        // Construct data
         var data = {
             message: $scope.message,
             whiteboard: $scope.groop.whiteboard
         }
+
+        // Create Post
         api.Post.create(data);
     };
 
     // Like a Post
     $scope.likePost = function(id) {
-        $http.post('http://localhost:9000/api/posts/' + id + '/like/')
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        api.Post.like({id: id, route: 'like'});
     };
 
     // Delete a Post
@@ -211,10 +211,7 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
 
     // Like a Comment
     $scope.likeComment = function(id) {
-        $http.post('http://localhost:9000/api/comments/' + id + '/like/')
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        api.Comment.like({id: id, route: 'like'});
     };
 
     // Goto
