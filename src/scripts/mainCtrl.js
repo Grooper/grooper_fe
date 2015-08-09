@@ -80,15 +80,6 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
     // Create Group
     $scope.createGroup = function() {
         // Construct data
-<<<<<<< HEAD:public/javascripts/mainCtrl.js
-    	var data = {
-            group_name: $scope.group.group_name,
-            description: $scope.group.description,
-            max_members: $scope.group.max_members,
-            location: $scope.group.location,
-            date: $scope.group.date
-    	}
-=======
         var data = {
             group_name: $scope.groop.group_name,
             description: $scope.groop.description,
@@ -96,7 +87,6 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
             location: $scope.groop.location,
             date: $scope.groop.date
         }
->>>>>>> refactor_scripts:src/scripts/mainCtrl.js
 
         // Create Group
         api.Group.create(data);
