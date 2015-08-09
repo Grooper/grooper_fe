@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/scripts/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/libraries/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/styles/main.css">
 	<title>Grooper</title>
 </head>
 
@@ -33,14 +33,21 @@
 
 		<div ui-view></div>
 
-		<script src="/scripts/angular/angular.min.js"></script>
-		<script src="/scripts/angular-resource/angular-resource.min.js"></script>
-		<script src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
-		<script src="/scripts/jquery/dist/jquery.min.js"></script>
-		<script src="/scripts/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="/src/router.js"></script>
-		<script src="/javascripts/mainCtrl.js"></script>
-
 	</div>
+
+	<!-- Angular Libraries -->
+	<script src="/libraries/angular/angular.min.js"></script>
+	<script src="/libraries/angular-resource/angular-resource.min.js"></script>
+	<script src="/libraries/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	<!-- JQuery -->
+	<script src="/libraries/jquery/dist/jquery.min.js"></script>
+
+	<!-- Bootstrap -->
+	<script src="/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Grooper Libraries -->
+	<script src="/src/router.js"></script>
+	<script src="/scripts/mainCtrl.js"></script>
 </body>
 </html>

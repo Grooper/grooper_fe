@@ -2,13 +2,13 @@ var app = angular.module('grooper');
 
 // Converts an object of objects into an array of objects
 app.filter('array', function() {
-	return function(items) {
-    	var filtered = [];
-    	angular.forEach(items, function(item) {
-        	filtered.push(item);
-    	});
+    return function(items) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            filtered.push(item);
+        });
     return filtered;
-  	};
+    };
 });
 
 // Grooper Home Controller =======================================================================================
@@ -80,6 +80,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
     // Create Group
     $scope.createGroup = function() {
         // Construct data
+<<<<<<< HEAD:public/javascripts/mainCtrl.js
     	var data = {
             group_name: $scope.group.group_name,
             description: $scope.group.description,
@@ -87,6 +88,15 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
             location: $scope.group.location,
             date: $scope.group.date
     	}
+=======
+        var data = {
+            group_name: $scope.groop.group_name,
+            description: $scope.groop.description,
+            max_members: $scope.groop.max_members,
+            location: $scope.groop.location,
+            date: $scope.groop.date
+        }
+>>>>>>> refactor_scripts:src/scripts/mainCtrl.js
 
         // Create Group
         api.Group.create(data);

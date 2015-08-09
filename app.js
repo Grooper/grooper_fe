@@ -43,8 +43,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Use scripts
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/libraries', express.static(__dirname + '/node_modules/'));
 app.use('/src', express.static(__dirname + '/src/'));
-app.use('/scripts', express.static(__dirname + '/node_modules/'));
+app.use('/scripts', express.static(__dirname + '/src/scripts/'));
+app.use('/styles', express.static(__dirname + '/src/styles/'));
 
 /**
  * Error handlers
