@@ -2,13 +2,13 @@ var app = angular.module('grooper');
 
 // Converts an object of objects into an array of objects
 app.filter('array', function() {
-	return function(items) {
-    	var filtered = [];
-    	angular.forEach(items, function(item) {
-        	filtered.push(item);
-    	});
+    return function(items) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            filtered.push(item);
+        });
     return filtered;
-  	};
+    };
 });
 
 // Grooper Home Controller =======================================================================================
@@ -80,13 +80,13 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
     // Create Group
     $scope.createGroop = function() {
         // Construct data
-    	var data = {
+        var data = {
             group_name: $scope.groop.group_name,
             description: $scope.groop.description,
             max_members: $scope.groop.max_members,
             location: $scope.groop.location,
             date: $scope.groop.date
-    	}
+        }
 
         // Create Group
         api.Group.create(data);
