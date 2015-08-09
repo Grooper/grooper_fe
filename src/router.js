@@ -1,6 +1,6 @@
 // Module ===============================================================================================
 
-var app = angular.module('grooper', ['ui.router', 'ngResource']);
+var app = angular.module('grouper', ['ui.router', 'ngResource']);
 
 // App Config ===========================================================================================
 
@@ -15,9 +15,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', functio
             templateUrl: '/partials/home.html',
             controller: 'homeCtrl'
         })
-        .state('searchList', {
-            url: '/searchList',
-            templateUrl: '/partials/searchList.html',
+        .state('search', {
+            url: '/search',
+            templateUrl: '/partials/search.html',
             controller: 'searchCtrl'
         })
         .state('group', {

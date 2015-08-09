@@ -1,15 +1,15 @@
 <div class="row">
 	<div class="col-md-8">
-		<input type="text" style="margin-bottom: 1em" class="search-query form-control" placeholder="Search Groops" ng-model="searchText"/>
-		<!-- Groop List -->
-		<div class="list-group" ng-repeat="groop in allGroops | array | filter:searchText">
-			<a class="list-group-item" ui-sref="groop({id: groop.id, myParam: groop.whiteboard})">
-		  		<h4 class="list-group-item-heading">{{groop.group_name}}
+		<input type="text" style="margin-bottom: 1em" class="search-query form-control" placeholder="Search Groups" ng-model="searchText"/>
+		<!-- Group List -->
+		<div class="list-group" ng-repeat="group in allGroups | array | filter:searchText">
+			<a class="list-group-item" ui-sref="group({id: group.id, myParam: group.whiteboard})">
+		  		<h4 class="list-group-item-heading">{{group.group_name}}
 		  			<div style="float: right">
-		  				{{groop.num_members}} / {{groop.max_members}}
+		  				{{group.num_members}} / {{group.max_members}}
 		  			</div>
 		  		</h4>
-		  		<p class="list-group-item-text">{{groop.description}}</p>
+		  		<p class="list-group-item-text">{{group.description}}</p>
 			</a>
 		</div>
 	</div>

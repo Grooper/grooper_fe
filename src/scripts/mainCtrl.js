@@ -1,4 +1,4 @@
-var app = angular.module('grooper');
+var app = angular.module('grouper');
 
 // Converts an object of objects into an array of objects
 app.filter('array', function() {
@@ -11,7 +11,7 @@ app.filter('array', function() {
     };
 });
 
-// Grooper Home Controller =======================================================================================
+// Grouper Home Controller =======================================================================================
 
 app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', 'api', function($scope, $http, $window, $location, authInterceptor, api) {
 
@@ -81,11 +81,11 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
     $scope.createGroup = function() {
         // Construct data
         var data = {
-            group_name: $scope.groop.group_name,
-            description: $scope.groop.description,
-            max_members: $scope.groop.max_members,
-            location: $scope.groop.location,
-            date: $scope.groop.date
+            group_name: $scope.group.group_name,
+            description: $scope.group.description,
+            max_members: $scope.group.max_members,
+            location: $scope.group.location,
+            date: $scope.group.date
         }
 
         // Create Group
@@ -108,7 +108,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
 
 }]);
 
-// Grooper Search Controller =======================================================================================
+// Grouper Search Controller =======================================================================================
 
 app.controller('searchCtrl', ['$scope', '$location', 'api', function($scope, $location, api) {
 
@@ -126,7 +126,7 @@ app.controller('searchCtrl', ['$scope', '$location', 'api', function($scope, $lo
 
 }]);
 
-// Grooper Group Controller =======================================================================================
+// Grouper Group Controller =======================================================================================
 
 app.controller('groupCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', '$stateParams', 'api', function($scope, $http, $window, $location, authInterceptor, $stateParams, api) {
 
