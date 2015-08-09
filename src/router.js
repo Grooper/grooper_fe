@@ -1,6 +1,6 @@
 // Module ===============================================================================================
 
-var app = angular.module('grouper', ['ui.router', 'ngResource']);
+var app = angular.module('grooper', ['ui.router', 'ngResource']);
 
 // App Config ===========================================================================================
 

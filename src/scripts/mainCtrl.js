@@ -1,4 +1,4 @@
-var app = angular.module('grouper');
+var app = angular.module('grooper');
 
 // Converts an object of objects into an array of objects
 app.filter('array', function() {
