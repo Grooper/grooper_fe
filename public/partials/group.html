@@ -1,6 +1,6 @@
-<h1 style="display: inline-block; margin-top: 1em; margin-left: 1em">{{groop.group_name}}</h1>
+<h1 style="display: inline-block; margin-top: 1em; margin-left: 1em">{{group.group_name}}</h1>
 <div style="float: right; display: inline-block">
-  <h1 style="float: right; display: inline-block; font-size: 60px">{{groop.num_members}}<div style="font-size: 30px; display: inline-block; margin-right: 3em"> / {{groop.max_members}}</div></h1>
+  <h1 style="float: right; display: inline-block; font-size: 60px">{{group.num_members}}<div style="font-size: 30px; display: inline-block; margin-right: 3em"> / {{group.max_members}}</div></h1>
 </div>
 
 <div class="col-md-12">
@@ -10,7 +10,7 @@
         <h3 class="panel-title">Description</h3>
       </div>
       <div class="panel-body">
-        {{groop.description}}
+        {{group.description}}
       </div>
     </div>
 
@@ -19,13 +19,13 @@
         <h3 class="panel-title">Location</h3>
       </div>
       <div class="panel-body">
-        {{groop.location}}
+        {{group.location}}
       </div>
     </div>
 
-    <button type="button" class="btn btn-default" ng-click="joinGroop(groop.id)">Join Groop</button>
-    <button type="button" class="btn btn-default" ng-click="leaveGroop(groop.id)">Leave Groop</button>
-    <button type="button" class="btn btn-default" ng-show="groop.owner == user.id" ng-click="deleteGroop(groop.id)">Delete Groop</button>
+    <button type="button" class="btn btn-default" ng-click="joinGroup(group.id)">Join Groop</button>
+    <button type="button" class="btn btn-default" ng-click="leaveGroup(group.id)">Leave Groop</button>
+    <button type="button" class="btn btn-default" ng-show="group.owner == user.id" ng-click="deleteGroup(group.id)">Delete Groop</button>
 
   </div>
 
@@ -53,14 +53,14 @@
     <!-- Text Input Comment on Post -->
     <form class="form-inline" ng-submit="addComment(post.id)" style="background-color: lavender; margin: 1em; padding: 1em">
       <span class="glyphicon glyphicon-thumbs-up"
-        ng-click="likePost(post.id)"> {{post.like_count}} 
+        ng-click="likePost(post.id)"> {{post.like_count}}
       </span>
       <input type="text" class="form-control" placeholder="Add a comment..." ng-model="newComment" style="width: 80%; margin-left: 1em"></input>
     </form>
 
     <!-- Comments on Post -->
       <div ng-repeat="comment in comments">
-        <span class="glyphicon glyphicon-thumbs-up" ng-click="likeComment(comment.id)" style="margin-left: 3em; margin-right: 1em"> {{comment.like_count}} 
+        <span class="glyphicon glyphicon-thumbs-up" ng-click="likeComment(comment.id)" style="margin-left: 3em; margin-right: 1em"> {{comment.like_count}}
         </span>
         <span>
           {{comment.message}}
@@ -70,17 +70,3 @@
   </div>
 </div>
 </div>
-
-<!-- Groops Button Dropdown
-<div class="btn-group">
-  <button type="button" class="btn btn-danger btn-lg dropdown-toggle" data-toggle="dropdown">
-    Groops <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">All Groops</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">My Groops</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="/">Log Out</a></li>
-  </ul>
-</div> -->

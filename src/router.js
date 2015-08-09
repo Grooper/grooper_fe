@@ -20,10 +20,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', functio
             templateUrl: '/partials/searchList.html',
             controller: 'searchCtrl'
         })
-        .state('groop', {
-            url: '/groop/:id',
-            templateUrl: '/partials/groop.html',
-            controller: 'groopCtrl'
+        .state('group', {
+            url: '/group/:id',
+            templateUrl: '/partials/group.html',
+            controller: 'groupCtrl'
         });
 
     // Don't strip trailing slashes from calculated URLs

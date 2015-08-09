@@ -78,14 +78,14 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
     };
 
     // Create Group
-    $scope.createGroop = function() {
+    $scope.createGroup = function() {
         // Construct data
     	var data = {
-            group_name: $scope.groop.group_name,
-            description: $scope.groop.description,
-            max_members: $scope.groop.max_members,
-            location: $scope.groop.location,
-            date: $scope.groop.date
+            group_name: $scope.group.group_name,
+            description: $scope.group.description,
+            max_members: $scope.group.max_members,
+            location: $scope.group.location,
+            date: $scope.group.date
     	}
 
         // Create Group
@@ -93,12 +93,12 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
 
         // Hide and reset modal
         $('#createModal').modal('hide');
-        document.getElementById('createGroop').reset();
+        document.getElementById('createGroup').reset();
     };
 
     // Delete Group
-    $scope.deleteGroop = function(groopId) {
-        api.Group.delete({id: groopId})
+    $scope.deleteGroup = function(groupId) {
+        api.Group.delete({id: groupId})
     };
 
     // Goto
@@ -113,8 +113,8 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', '$location', 'authInte
 app.controller('searchCtrl', ['$scope', '$location', 'api', function($scope, $location, api) {
 
     // Query all Groups
-    $scope.getAllGroops = function() {
-        $scope.allGroops = api.Group.query();
+    $scope.getAllGroups = function() {
+        $scope.allGroups = api.Group.query();
     };
 
     // Goto
@@ -122,44 +122,37 @@ app.controller('searchCtrl', ['$scope', '$location', 'api', function($scope, $lo
         $location.path(path);
     };
 
-    $scope.getAllGroops();
+    $scope.getAllGroups();
 
 }]);
 
-// Grooper Groop Controller =======================================================================================
+// Grooper Group Controller =======================================================================================
 
-app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', '$stateParams', 'api', function($scope, $http, $window, $location, authInterceptor, $stateParams, api) {
+app.controller('groupCtrl', ['$scope', '$http', '$window', '$location', 'authInterceptor', '$stateParams', 'api', function($scope, $http, $window, $location, authInterceptor, $stateParams, api) {
 
     // Load Group and Posts for this Group
     $scope.start = function() {
-        $scope.getGroop();
+        $scope.getGroup();
         $scope.getPosts();
     };
 
     // Get the Group
-    $scope.getGroop = function() {
-        $scope.groop = api.Group.get({id: $stateParams.id});
+    $scope.getGroup = function() {
+        $scope.group = api.Group.get({id: $stateParams.id});
     }
 
     // Get Posts for this Group
     $scope.getPosts = function() {
-        $http.get('http://localhost:9000/api/posts/?whiteboard=' + $scope.groop.whiteboard)
-            .success(function(data) {
-                $scope.posts = data;
-                console.log($scope.posts);
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        $scope.posts = api.Post.query({whiteboard: $scope.group.whiteboard});
     };
 
     // Join this Group
-    $scope.joinGroop = function(id) {
+    $scope.joinGroup = function(id) {
         api.Group.joinGroup({id: $stateParams.id, route: 'join-group'});
     };
 
     // Leave this Group
-    $scope.leaveGroop = function(id) {
+    $scope.leaveGroup = function(id) {
         api.Group.leaveGroup({id: $stateParams.id, route: 'leave-group'});
     };
 
@@ -168,7 +161,7 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
         // Construct data
         var data = {
             message: $scope.message,
-            whiteboard: $scope.groop.whiteboard
+            whiteboard: $scope.group.whiteboard
         }
 
         // Create Post
@@ -187,14 +180,7 @@ app.controller('groopCtrl', ['$scope', '$http', '$window', '$location', 'authInt
 
     // Get Comments for this Post
     $scope.getComments = function(id) {
-        $http.get('http://localhost:9000/api/comments/?post=' + id)
-            .success(function(data) {
-                $scope.comments = data;
-                console.log($scope.comments);
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        $scope.comments = api.Comment.query({post: id});
     };
 
     // Write a Comment to this Post
